@@ -6,6 +6,6 @@ phases:
       - echo Build completed on `date`
       - npm package
       - npm install
-  artifacts:
-    files:
-      - '**/*'
+artifacts:
+  files:
+    - '**/*'
