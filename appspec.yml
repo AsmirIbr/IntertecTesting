@@ -1,10 +1,10 @@
 version: 0.0
 os: linux
 files:
-  - source: /root
+  - source: /root 
     destination: /root/lottery
 hooks:
   ApplicationStart:
-    - location: /root/lottery/start.sh
+    - location: /root/start.sh
       timeout: 300
       runas: ec2-user
