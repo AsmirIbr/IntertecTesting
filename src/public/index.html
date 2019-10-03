@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
+    
+    <!-- <link rel="icon" href="/images/favicon.ico" type="image/x-icon">/ -->
+    <!-- <link rel="stylesheet" href="./style.css"> -->
+
+    <title>CodeAcademy Lottery</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Orbitron" rel="stylesheet">
+    <style>
+        header {
+            font-family: 'Orbitron', sans-serif;
+            width: 90%;
+            margin: 0 auto 50px;
+            display: flex;
+            height: 35px;
+            justify-content: space-between;
+            font-size: 20px;
+        }
+
+        header>div>div:last-child {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 12px;
+        }
+
+        .wrapper {
+            width: 80%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        .inputDiv {
+            display: flex;
+            flex-direction: column;
+            width: 50%;
+        }
+
+        .inputDiv>input {
+            height: 35px;
+            padding: 8px 12px;
+            border-width: 1px;
+            border-radius: 6px;
+            border-style: dotted;
+            font-size: 13px;
+            outline: none;
+            margin: 5px;
+        }
+
+        .myButton {
+            -moz-box-shadow: 20px 13px 31px -1px #276873;
+            -webkit-box-shadow: 20px 13px 31px -1px #276873;
+            box-shadow: 20px 13px 31px -1px #276873;
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #599bb3), color-stop(1, #408c99));
+            background: -moz-linear-gradient(top, #599bb3 5%, #408c99 100%);
+            background: -webkit-linear-gradient(top, #599bb3 5%, #408c99 100%);
+            background: -o-linear-gradient(top, #599bb3 5%, #408c99 100%);
+            background: -ms-linear-gradient(top, #599bb3 5%, #408c99 100%);
+            background: linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#599bb3', endColorstr='#408c99', GradientType=0);
+            background-color: #599bb3;
+            -moz-border-radius: 8px;
+            -webkit-border-radius: 8px;
+            border-radius: 8px;
+            display: inline-block;
+            cursor: pointer;
+            color: #ffffff;
+            font-family: Arial;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 0 32px;
+            text-decoration: none;
+            text-shadow: 2px 4px 0px #3d768a;
+        }
+
+        .myButton:hover {
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #408c99), color-stop(1, #599bb3));
+            background: -moz-linear-gradient(top, #408c99 5%, #599bb3 100%);
+            background: -webkit-linear-gradient(top, #408c99 5%, #599bb3 100%);
+            background: -o-linear-gradient(top, #408c99 5%, #599bb3 100%);
+            background: -ms-linear-gradient(top, #408c99 5%, #599bb3 100%);
+            background: linear-gradient(to bottom, #408c99 5%, #599bb3 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#408c99', endColorstr='#599bb3', GradientType=0);
+            background-color: #408c99;
+        }
+
+        .myButton:active {
+            position: relative;
+            top: 1px;
+        }
+
+        #msg{
+            width: 80%;
+            margin: 25px auto;
+            text-align: center;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://momentjs.com/downloads/moment.min.js"></script>
+
+</head>
+
+<body>
+    <header>
+        <div class="perDay">
+            <div id="countdownPerDay"></div>
+            <div id="nextPerDay"></div>
+        </div>
+        <div class="perWeek">
+            <div id="newcountdownPerWeek"></div>
+            <div id="nextPerWeek"></div>
+        </div>
+        <div class="final">
+            <div id="newcountdownFinal"></div>
+            <div></div>
+        </div>
+
+    </header>
+
+    <div class="wrapper">
+        <div class="inputDiv">
+            <input type="text" placeholder="Enter your code" id="code" required>
+            <input type="text" placeholder="Enter your name" id="name" required>
+            <input type="email" placeholder="Enter your email" id="email" required>
+            <input type="text" placeholder="Enter your mobile phone" id="phone" required>
+            <input id="submit-user" type="submit" value="Send" class="myButton">
+        </div>
+        
+    </div>
+    <div id="msg"></div>
+
+    <script>
+        var draw = async (data) => {
+            $.ajax({
+                method: 'POST',
+                crossDomain: true,
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                url: `http://127.0.0.1:3000/draw/${data}`,
+                data: JSON.stringify(),
+            })
+                .then((success) => {
+                    console.log(success);
+                })
+                .catch((error) => {
+
+                });
+        }
+
+        var timePerDay = '04/19/2019 09:45 AM';
+        var timePerWeek = '04/19/2019 09:45 AM';
+
+        var getCountDownTimer = async (data) => {
+            $.ajax({
+                method: 'GET',
+                crossDomain: true,
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                url: `http://127.0.0.1:3000/draw/${data}`,
+                data: JSON.stringify(),
+            })
+                .then((success) => {
+                    var idx = 0; // key2
+                    var key = Object.keys(success[0])[idx];
+                    value = success[0][key]
+
+                if(data === 1) {
+                    Count1DownTimer(value, 'countdownPerDay');     
+                function Count1DownTimer(dt, id) {
+                    var end = new Date(dt);
+                    var _second = 1000;
+                    var _minute = _second * 60;
+                    var _hour = _minute * 60;
+                    var _day = _hour * 24;
+                    var timer;
+
+                function showRemaining() {
+                    var now = new Date();
+
+                    clearInterval(timer);
+
+                        var dateNow = new Date();
+                        var a = moment(end);
+                        var b = a.add(1, 'day');
+                        var dateFormat = a.format();
+                        var newDate = new Date(dateFormat);
+                        document.getElementById("nextPerDay").innerHTML = "Next draw on " + moment(newDate).format('llll');
+                        CountDownTimer(newDate, 'countdownPerDay');
+
+                    return;
+                var days = Math.floor(distance / _day);
+                var hours = Math.floor((distance % _day) / _hour);
+                var minutes = Math.floor((distance % _hour) / _minute);
+                var seconds = Math.floor((distance % _minute) / _second);
+
+
+                if (String(hours).length < 2) {
+                    hours = 0 + String(hours);
+                }
+                if (String(minutes).length < 2) {
+                    minutes = 0 + String(minutes);
+                }
+                if (String(seconds).length < 2) {
+                    seconds = 0 + String(seconds);
+                }
+
+
+                var datestr = days + ' days ' +
+                    hours + ' hrs ' +
+                    minutes + ' mins ' +
+                    seconds + ' secs';
+
+                document.getElementById(id).innerHTML = datestr;
+            }
+
+            timer = setInterval(showRemaining, 1000);
+        }
+                } else if (data === 2){
+                Count1DownTimer(value, 'newcountdownPerWeek');     
+                    function Count1DownTimer(dt, id) {
+                        var end = new Date(dt);
+                        var _second = 1000;
+                        var _minute = _second * 60;
+                        var _hour = _minute * 60;
+                        var _day = _hour * 24;
+                        var timer;
+
+                    function showRemaining() {
+                        var now = new Date();
+
+                        clearInterval(timer);
+
+                        var dateNow = new Date();
+                        var a = moment(end);
+                        var b = a.add(1, 'week');
+                        var dateFormat = a.format();
+                        var newDate = new Date(dateFormat);
+                        document.getElementById("nextPerWeek").innerHTML = "Next draw on " + moment(newDate).format('llll');
+                        CountDownTimer(newDate, 'newcountdownPerWeek');
+
+                        return;
+                        var days = Math.floor(distance / _day);
+                        var hours = Math.floor((distance % _day) / _hour);
+                var minutes = Math.floor((distance % _hour) / _minute);
+                var seconds = Math.floor((distance % _minute) / _second);
+
+
+                if (String(hours).length < 2) {
+                    hours = 0 + String(hours);
+                }
+                if (String(minutes).length < 2) {
+                    minutes = 0 + String(minutes);
+                }
+                if (String(seconds).length < 2) {
+                    seconds = 0 + String(seconds);
+                }
+
+
+                var datestr = days + ' days ' +
+                    hours + ' hrs ' +
+                    minutes + ' mins ' +
+                    seconds + ' secs';
+
+                document.getElementById(id).innerHTML = datestr;
+            }
+
+            timer = setInterval(showRemaining, 1000);
+        }            
+                }
+                })
+                .catch((error) => {
+
+                });
+        }
+
+        getCountDownTimer(1);
+        getCountDownTimer(2);
+        
+        CountDownTimer('05/20/2019 9:49:30 PM', 'newcountdownFinal');
+
+        function CountDownTimer(dt, id) {
+            var end = new Date(dt);
+
+            var _second = 1000;
+            var _minute = _second * 60;
+            var _hour = _minute * 60;
+            var _day = _hour * 24;
+            var timer;
+
+            function showRemaining() {
+                var now = new Date();
+                var distance = end - now;
+                if (distance < 0) {
+
+                    clearInterval(timer);
+                    document.getElementById(id).innerHTML = 'DRAWING!';
+                    if (id === 'countdownPerDay') {
+                        draw('1');
+                        var dateNow = new Date();
+                        var a = moment(newDate);
+                        var b = a.add(1, 'day');
+                        var dateFormat = a.format();
+                        var newDate = new Date(dateFormat);
+                        document.getElementById("nextPerDay").innerHTML = "Next draw on " + moment(newDate).format('llll');
+                        CountDownTimer(newDate, 'countdownPerDay');
+
+                    } else if (id === 'newcountdownPerWeek') {
+                        draw('2');
+                        var dateNow = new Date();
+                        var a = moment(newDate);
+                        var b = a.add(1, 'week');
+                        var dateFormat = a.format();
+                        var newDate = new Date(dateFormat);
+                        document.getElementById("nextPerWeek").innerHTML = "Next draw on " + moment(newDate).format('llll');
+                        CountDownTimer(newDate, 'newcountdownPerWeek');
+                    } else if (id === 'newcountdownFinal') {
+                        draw('3');
+                        var dateNow = new Date();
+                        var a = moment(newDate);
+                        var b = a.add(1, 'months');
+                        var dateFormat = a.format();
+                        var newDate = new Date(dateFormat);
+                        CountDownTimer(newDate, 'newcountdownFinal');
+                    }
+
+                    return;
+                }
+                var days = Math.floor(distance / _day);
+                var hours = Math.floor((distance % _day) / _hour);
+                var minutes = Math.floor((distance % _hour) / _minute);
+                var seconds = Math.floor((distance % _minute) / _second);
+
+
+                if (String(hours).length < 2) {
+                    hours = 0 + String(hours);
+                }
+                if (String(minutes).length < 2) {
+                    minutes = 0 + String(minutes);
+                }
+                if (String(seconds).length < 2) {
+                    seconds = 0 + String(seconds);
+                }
+
+
+                var datestr = days + ' days ' +
+                    hours + ' hrs ' +
+                    minutes + ' mins ' +
+                    seconds + ' secs';
+
+                document.getElementById(id).innerHTML = datestr;
+            }
+
+            timer = setInterval(showRemaining, 1000);
+        }
+
+        $("#submit-user").on("click", async (event) => {
+            var code = $("#code").val();
+            var name = $("#name").val();
+            var email = $("#email").val();
+            var phone = $("#phone").val();
+            var link = "users"
+
+            if (code.length === 0 || name.length === 0 || email.length === 0 || phone.length === 0) {
+                document.getElementById("msg").innerHTML = "All fields are required";
+            } else {
+                var create = await createUser(code, name, email, phone, link);
+            }
+        })
+
+        var createUser = async (code, name, email, phone, link) => {
+            var user = {
+                name: name,
+                lastCode: code,
+                email: email,
+                phone: phone
+            }
+                
+            $.ajax({
+                method: 'POST',
+                crossDomain: true,
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                url: `http://127.0.0.1:3000/${link}`,
+                data: JSON.stringify(user),
+            })
+                .then((success) => {
+                    document.getElementById("msg").innerHTML = "Your code has been posted";
+                })
+                .catch((error) => {
+                    if(error.status === 404){
+                        document.getElementById("msg").innerHTML = "Invalid code, please try again";
+                    } else {
+                        document.getElementById("msg").innerHTML = "The code is already used";
+                    }
+
+                });
+        }
+
+        
+
+    </script>
+</body>
+
+</html>

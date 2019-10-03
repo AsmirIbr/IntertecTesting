@@ -1,0 +1,25 @@
+{
+  "dev": {
+    "username": "asmirwordpress",
+    "password": "asmirwordpress",
+    "database": "Lottery",
+     "host": "asmirwordpress.cuwpfmacplol.eu-west-2.rds.amazonaws.com",
+    "port": 3306,
+    "dialect": "mysql",
+    "operatorsAliases": false,
+    "pool": {
+      "max": 5,
+      "min": 0,
+      "acquire": 10000,
+      "idle": 10000
+    },
+  "define": {
+    "paranoid": true
+  }
+  },
+  "staging": {
+  },
+  "production": {
+
+  }
+}
