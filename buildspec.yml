@@ -1,16 +1,13 @@
-version: 0.1
+version: 0.2
 
 phases:
   install:
     runtime-version:
       nodejs: 10
-    commands:
-      -npm install
   build:
     commands:
-      - echo Build completed on `date`
-      - npm package
       - npm install
+      - echo Build completed on `date`
 artifacts:
   files:
     - '**/*'
