@@ -4,6 +4,8 @@ phases:
   install:
     runtime-version:
       nodejs: 10
+    commands:
+      -npm install
   build:
     commands:
       - echo Build completed on `date`
