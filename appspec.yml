@@ -5,6 +5,6 @@ files:
     destination: /root/lottery
 hooks:
   ApplicationStart:
-    - location: /root/lottery/start.sh
+    - location: lottery/start.sh
       timeout: 500
       runas: root
