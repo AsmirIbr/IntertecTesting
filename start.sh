@@ -5,5 +5,5 @@ cd /root/lottery
 rm -rf node_modules
 npm install
 npm run build
-npm run serve
+nohup npm run serve
 echo "done"
