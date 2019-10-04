@@ -1,7 +1,7 @@
 version: 0.0
 os: linux
 files:
-  - source: /root 
+  - source: /
     destination: /root/lottery
 hooks:
   ApplicationStart:
