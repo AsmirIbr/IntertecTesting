@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /
+    destination: /root/lottery
 hooks:
   ApplicationStart:
     - location: start.sh
