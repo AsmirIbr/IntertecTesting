@@ -4,8 +4,6 @@ files:
   - source: /root 
     destination: /root/lottery
 hooks:
-  ApplicationStop:
-    - echo app stop
   ApplicationStart:
     - location: /root/start.sh
       timeout: 300
