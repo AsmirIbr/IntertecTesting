@@ -6,3 +6,4 @@ rm -rf node_modules
 npm install
 npm run build
 nohup npm run serve
+echo "done"
