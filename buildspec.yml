@@ -9,6 +9,7 @@ phases:
       - npm install
       - npm run build
       - echo Build completed on `date`
+      
 artifacts:
   files:
     - '**/*'
