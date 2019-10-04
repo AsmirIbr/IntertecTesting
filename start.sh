@@ -5,5 +5,6 @@ cd /root/lottery
 rm -rf node_modules
 npm install
 npm run build
-nohup npm run serve
+cd /root
+forever start /root/lottery/dist/index.js
 echo "done"
