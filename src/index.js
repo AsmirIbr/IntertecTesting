@@ -10,7 +10,7 @@ import indexRouter from './indexRouter/index';
 
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 app.use(logger('dev'));
 app.use(cors());
