@@ -4,7 +4,7 @@ files:
   - source: /
     destination: /root/lottery
 permissions:
-  - object: /root/lottery
+  - object: /root/lottery/
     owner: root
     group: root
     mode: 755
