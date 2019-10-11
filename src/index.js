@@ -24,7 +24,6 @@ app.use(indexRouter);
 
 app.use('/', (req,res) => {
   res.sendFile(path.join(__dirname+'/public/index.html'));
-  //__dirname : It will resolve to your project folder.s
 });
 
 // API listener
