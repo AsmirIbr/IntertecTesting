@@ -3,6 +3,11 @@ os: linux
 files:
   - source: /
     destination: /root/lottery
+permissions:
+  - object: /root/lottery
+    owner: root
+    group: root
+    mode: 755
 hooks:
   ApplicationStart:
     - location: start.sh
