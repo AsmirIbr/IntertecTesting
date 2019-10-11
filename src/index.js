@@ -28,5 +28,5 @@ app.use('/', (req,res) => {
 
 // API listener
 app.listen(port, () => {
-  console.log(`API is running on ${port}`);
+  console.log(`API is running on ${port}!`);
 });
