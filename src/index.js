@@ -26,7 +26,7 @@ app.use('/', (req,res) => {
   res.sendFile(path.join(__dirname+'/public/index.html'));
 });
 
-// API listener
+// API listener!
 app.listen(port, () => {
   console.log(`API is running on ${port}!`);
 });
