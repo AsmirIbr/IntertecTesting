@@ -9,10 +9,6 @@ permissions:
     group: root
     mode: 755
 hooks:
-  AfterInstall:
-    - location: install.sh
-      timeout: 300
-      runas: root
   ApplicationStart:
     - location: start.sh
       timeout: 300
