@@ -9,7 +9,7 @@ permissions:
     group: root
     mode: 755
 hooks:
-  Install:
+  AfterInstall:
     - location: install.sh
       timeout: 300
       runas: root
