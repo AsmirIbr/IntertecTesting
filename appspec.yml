@@ -10,6 +10,6 @@ permissions:
     mode: 755
 hooks:
   ApplicationStart:
-    - location: nstart.sh
+    - location: start.sh
       timeout: 300
       runas: root
