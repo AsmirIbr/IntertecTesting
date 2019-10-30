@@ -1,5 +1,5 @@
 import Sequelize from 'sequelize';
-import dbConfig from '../../config/mysql.json';
+import dbConfig from '/var/dbConfig/mysql.json';
 
 const currentDb = dbConfig[process.env.NODE_ENV || 'dev'];
 const sequelize = new Sequelize(currentDb);
