@@ -10,6 +10,6 @@ permissions:
     mode: 755
 hooks:
   ApplicationStart:
-    - location: start.sh
+    - location: /root/lottery/start.sh
       timeout: 300
       runas: root
