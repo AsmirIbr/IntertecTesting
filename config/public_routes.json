@@ -7,7 +7,6 @@
         "/auth/reset-password",
         "/auth/forgotPassword",
         "/auth/reset",
-        "/users",
         "/auth/users"
     ],
     "staging": [
