@@ -1,9 +1,9 @@
 {
   "dev": {
-    "username": "asmirwordpress",
-    "password": "asmirwordpress",
+    "username": "dbAdmin",
+    "password": "F$9<.3ITiq4$kJ8Zd}Ov{H-vSz<_TN",
     "database": "Lottery",
-     "host": "asmirwordpress.cuwpfmacplol.eu-west-2.rds.amazonaws.com",
+     "host": "awso-production-db.cuwpfmacplol.eu-west-2.rds.amazonaws.com",
     "port": 3306,
     "dialect": "mysql",
     "operatorsAliases": false,
@@ -20,10 +20,10 @@
   "staging": {
   },
   "production": {
-    "username": "asmirwordpress",
-    "password": "asmirwordpress",
+    "username": "dbAdmin",
+    "password": "F$9<.3ITiq4$kJ8Zd}Ov{H-vSz<_TN",
     "database": "Lottery",
-     "host": "nodejs-awso-base-nodejscreatedb-1b2cradanarlq-db.cuwpfmacplol.eu-west-2.rds.amazonaws.com",
+     "host": "awso-production-db.cuwpfmacplol.eu-west-2.rds.amazonaws.com",
     "port": 3306,
     "dialect": "mysql",
     "operatorsAliases": false,

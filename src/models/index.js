@@ -2,6 +2,7 @@ import Sequelize from 'sequelize';
 import connection from '../db/sequelize';
 
 const models = {
+  AuthUsers: connection.import('../authUsers/model'),
   Lottery: connection.import('../lottery/model'),
   Users: connection.import('../users/model'),
   Codes: connection.import('../codes/model'),
